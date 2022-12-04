@@ -5,115 +5,49 @@ Clasificación usando k-NN - Digits Dataset
 En este laboratio se construirá un clasificador usando k-NN para el dataset de digitos.
 
 """
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-from sklearn import datasets
+import sys
+
+import preguntas
 
 
-def pregunta_01():
-    """
-    Complete el código presentado a continuación.
-    """
-
-    # Cargue el dataset digits
-    digits = ____.____()
-
-    # Imprima los nombres de la variable target del dataset
-    print(____.____)
-
-    # Imprima las dimensinoes de matriz de datos
-    print(____.____.____)
-
-    # Imprima las dimensiones del vector de salida
-    print(____.____.____)
+def test_01():
+    preguntas.pregunta_01()
 
 
-def pregunta_02():
-    """
-    Complete el código presentado a continuación.
-    """
-    # Importe KNeighborsClassifier de sklearn.neighbors
-    from ____ import ____
-
-    # Importe train_test_split de sklearn.model_selection
-    from ____ import ____
-
-    # Cargue el dataset digits
-    digits = ____.____()
-
-    # Cree los vectors de características y de salida
-    X = ____.____
-    y = ____.____
-
-    # Divida los datos de entrenamiento y prueba. Los conjuntos de datos están
-    # estratificados. La semilla del generador de números aleatorios es 42.
-    # El tamaño del test es del 20%
-    X_train, X_test, y_train, y_test = ____(
-        ____, ____, test_size=____, random_state=____, stratify=____
-    )
-
-    # Cree un clasificador con siete vecinos
-    knn = ____
-
-    # Entrene el clasificador
-    ____
-
-    # Imprima la precisión (score) del clasificador en el conjunto de datos de prueba
-    print(round(knn.score(____, ____), 4))
+def test_02():
+    preguntas.pregunta_02()
 
 
-def pregunta_03():
-    """
-    Complete el código presentado a continuación.
-    """
+def test_03():
+    assert preguntas.pregunta_03().to_dict() == {
+        "k": {0: 1, 1: 2, 2: 3, 3: 4, 4: 5, 5: 6, 6: 7, 7: 8},
+        "train_accuracy": {
+            0: 1.0,
+            1: 0.9916492693110647,
+            2: 0.9937369519832986,
+            3: 0.9937369519832986,
+            4: 0.9916492693110647,
+            5: 0.9895615866388309,
+            6: 0.9902574808629089,
+            7: 0.9895615866388309,
+        },
+        "test_accuracy": {
+            0: 0.9861111111111112,
+            1: 0.9861111111111112,
+            2: 0.9861111111111112,
+            3: 0.9833333333333333,
+            4: 0.9833333333333333,
+            5: 0.9805555555555555,
+            6: 0.9833333333333333,
+            7: 0.9777777777777777,
+        },
+    }
 
-    # Importe KNeighborsClassifier de sklearn.neighbors
-    from ____ import ____
 
-    # Importe train_test_split de sklearn.model_selection
-    from ____ import ____
+test = {
+    "01": test_01,
+    "02": test_02,
+    "03": test_03,
+}[sys.argv[1]]
 
-    # Cargue el dataset digits
-    digits = ____.____()
-
-    # Cree los vectors de características y de salida
-    X = ____.____
-    y = ____.____
-
-    # Divida los datos de entrenamiento y prueba. Los conjuntos de datos están
-    # estratificados. La semilla del generador de números aleatorios es 42.
-    X_train, X_test, y_train, y_test = ____(
-        ____, ____, test_size=____, random_state=____, stratify=____
-    )
-
-    # Inicialice los arreglos para almacenar la precisión para las muestras de
-    # entrenamiento y de prueba
-    neighbors = np.arange(1, 9)
-    train_accuracy = np.empty(len(neighbors))
-    test_accuracy = np.empty(len(neighbors))
-
-    # Se itera sobre diferentes valores de vecinos
-    for i, k in enumerate(neighbors):
-        # Cree un clasificador con k vecinos
-        knn = ____
-
-        # Entrene el clasificador con los datos de entrenamiento
-        ____
-
-        # Calcule la precisión para el conjunto de datos de entrenamiento
-        train_accuracy[i] = knn.score(____, ____)
-
-        # Calcule la precisión para el conjunto de datos de prueba
-        test_accuracy[i] = knn.score(____, ____)
-
-    # Almacenamiento de los resultados como un dataframe
-    df = pd.DataFrame(
-        {
-            "k": neighbors,
-            "train_accuracy": train_accuracy,
-            "test_accuracy": test_accuracy,
-        }
-    )
-
-    return df
+test()
